@@ -12,7 +12,9 @@ class TodoListViewController: UITableViewController {
     
     // MARK: - Instance Variables
     
-    var todoArray = ["Eat Breakfast", "Clean House", "Create DataSource", "Go To Bed", "Brush Teeth", "Make Pizza", "Scrub Toilet", "Thaw Chicken", "Save The World", "Call Mom", "Renew Tags", "Do Homework", "Watch Netflix", "Be A Hipster", "Drink Water"]
+    var todoArray = ["Eat Breakfast", "Clean House", "Create DataSource", "Go To Bed", "Brush Teeth", "Make Pizza", "Scrub Toilet", "Thaw Chicken", "Save The World", "Call Mom", "Renew Tags", "Do Homework", "Watch Netflix", "Be A Hipster", "Drink Water", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"].map { (item) -> TodoItem in
+        return TodoItem(title: item)
+    }
     
     // MARK: - View Lifecycle Methods
     
@@ -28,7 +30,7 @@ class TodoListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoItemCell", for: indexPath)
-        cell.textLabel?.text = todoArray[indexPath.row]
+        cell.textLabel?.text = todoArray[indexPath.row].title
         
         return cell
     }
@@ -36,12 +38,8 @@ class TodoListViewController: UITableViewController {
     // MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        toggleCheckmark(forCell: tableView.cellForRow(at: indexPath)!)
+        todoArray[indexPath.row].toggleIsFinished()
         tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    func toggleCheckmark(forCell cell: UITableViewCell) {
-        cell.accessoryType = (cell.accessoryType == .checkmark) ? .none : .checkmark
     }
     
     // MARK: IBActions
@@ -55,7 +53,9 @@ class TodoListViewController: UITableViewController {
             guard let text = textField.text else { return }
             if text.isEmpty { return }
             
-            self.todoArray.append(text)
+            let newTodoItem = TodoItem(title: text)
+            
+            self.todoArray.append(newTodoItem)
             
             self.tableView.reloadData()
             self.tableView.layoutIfNeeded()
