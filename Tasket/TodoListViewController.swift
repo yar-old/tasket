@@ -12,7 +12,7 @@ class TodoListViewController: UITableViewController {
     
     // MARK: - Instance Variables
     
-    let todoArray = ["Eat Breakfast", "Clean House", "Create DataSource", "Go To Bed", "Brush Teeth", "Make Pizza", "Scrub Toilet", "Thaw Chicken", "Save The World", "Call Mom", "Renew Tags", "Do Homework", "Watch Netflix", "Be A Hipster", "Drink Water"]
+    var todoArray = ["Eat Breakfast", "Clean House", "Create DataSource", "Go To Bed", "Brush Teeth", "Make Pizza", "Scrub Toilet", "Thaw Chicken", "Save The World", "Call Mom", "Renew Tags", "Do Homework", "Watch Netflix", "Be A Hipster", "Drink Water"]
     
     // MARK: - View Lifecycle Methods
     
@@ -43,4 +43,31 @@ class TodoListViewController: UITableViewController {
     func toggleCheckmark(forCell cell: UITableViewCell) {
         cell.accessoryType = (cell.accessoryType == .checkmark) ? .none : .checkmark
     }
+    
+    // MARK: IBActions
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Add New Todo Item", message: "", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            guard let text = textField.text else { return }
+            if text.isEmpty { return }
+            
+            self.todoArray.append(text)
+            
+            self.tableView.reloadData()
+            self.tableView.layoutIfNeeded()
+        }
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Create new item"
+            textField = alertTextField
+        }
+        
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
 }

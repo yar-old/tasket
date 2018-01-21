@@ -12,7 +12,7 @@
         <!--Tasket-->
         <scene sceneID="CcJ-Eo-3eR">
             <objects>
-                <tableViewController id="PAe-MF-ucB" customClass="TodoListViewController" customModule="Todoey" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="PAe-MF-ucB" customClass="TodoListViewController" customModule="Tasket" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="2Ym-XP-oxy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -32,11 +32,18 @@
                             <outlet property="delegate" destination="PAe-MF-ucB" id="gO4-s1-aRb"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Tasket" id="vUL-Vp-gp7"/>
+                    <navigationItem key="navigationItem" title="Tasket" id="vUL-Vp-gp7">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="tqb-19-WHx">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addButtonPressed:" destination="PAe-MF-ucB" id="z6H-Ma-KLB"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UBa-5s-iAh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1311" y="140"/>
+            <point key="canvasLocation" x="1051" y="140"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rmk-pM-qt6">
