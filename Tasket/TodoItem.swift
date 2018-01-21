@@ -17,6 +17,6 @@ class TodoItem {
     }
     
     func toggleIsFinished() {
-        self.isFinished = self.isFinished ? false : true
+        self.isFinished = !self.isFinished
     }
 }
