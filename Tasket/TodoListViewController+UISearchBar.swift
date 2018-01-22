@@ -12,19 +12,16 @@ import CoreData
 // MARK: - UISearchBar Delegate Methods
 
 extension TodoListViewController: UISearchBarDelegate {
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        guard let query = searchBar.text else { return }
-//
-//        let request: NSFetchRequest<TodoItem> = TodoItem.fetchRequest()
-//        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", query)
-//        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
-//
-//        loadData(with: request, predicate: predicate)
-//    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let query = searchBar.text else { return }
+
+        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", query)
+        loadData(with: predicate)
+    }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.count == 0 {
-//            loadData()
+            loadData()
             
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
