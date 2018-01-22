@@ -16,7 +16,7 @@ class TodoListViewController: UITableViewController {
     var todoArray = [TodoItem]()
     var selectedCategory: Category? {
         didSet {
-            loadData()
+//            loadData()
         }
     }
     
@@ -54,32 +54,32 @@ class TodoListViewController: UITableViewController {
     
     // MARK: - IBActions
     
-    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
-        var textField = UITextField()
-        
-        let alert = UIAlertController(title: "Add New Todo Item", message: "", preferredStyle: .alert)
-        
-        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
-            guard let text = textField.text else { return }
-            if text.isEmpty { return }
-            
-            let newTodoItem = TodoItem(context: self.context)
-            newTodoItem.title = text
-            newTodoItem.isFinished = false
-            newTodoItem.parentCategory = self.selectedCategory
-            
-            self.todoArray.append(newTodoItem)
-            self.saveData()
-        }
-        
-        alert.addTextField { (alertTextField) in
-            alertTextField.placeholder = "Create new item"
-            textField = alertTextField
-        }
-        
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
-    }
+//    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+//        var textField = UITextField()
+//
+//        let alert = UIAlertController(title: "Add New Todo Item", message: "", preferredStyle: .alert)
+//
+//        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+//            guard let text = textField.text else { return }
+//            if text.isEmpty { return }
+//
+//            let newTodoItem = TodoItem(context: self.context)
+//            newTodoItem.title = text
+//            newTodoItem.isFinished = false
+//            newTodoItem.parentCategory = self.selectedCategory
+//
+//            self.todoArray.append(newTodoItem)
+//            self.saveData()
+//        }
+//
+//        alert.addTextField { (alertTextField) in
+//            alertTextField.placeholder = "Create new item"
+//            textField = alertTextField
+//        }
+//
+//        alert.addAction(action)
+//        present(alert, animated: true, completion: nil)
+//    }
     
     func saveData() {
         do {
@@ -91,24 +91,24 @@ class TodoListViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    func loadData(with request: NSFetchRequest<TodoItem> = TodoItem.fetchRequest(), predicate: NSPredicate? = nil) {
-        
-        guard let categoryName = selectedCategory?.name else { return }
-        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", categoryName)
-        
-        if let addditionalPredicate = predicate {
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, addditionalPredicate])
-        } else {
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate])
-        }
-        
-        do {
-            todoArray = try context.fetch(request)
-        } catch {
-            print("Error fetching data from context \(error)")
-        }
-        
-        tableView.reloadData()
-    }
+//    func loadData(with request: NSFetchRequest<TodoItem> = TodoItem.fetchRequest(), predicate: NSPredicate? = nil) {
+//
+//        guard let categoryName = selectedCategory?.name else { return }
+//        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", categoryName)
+//
+//        if let addditionalPredicate = predicate {
+//            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, addditionalPredicate])
+//        } else {
+//            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate])
+//        }
+//
+//        do {
+//            todoArray = try context.fetch(request)
+//        } catch {
+//            print("Error fetching data from context \(error)")
+//        }
+//
+//        tableView.reloadData()
+//    }
     
 }
