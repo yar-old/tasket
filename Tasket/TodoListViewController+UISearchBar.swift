@@ -14,12 +14,8 @@ import CoreData
 extension TodoListViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let query = searchBar.text else { return }
-        
-        let request: NSFetchRequest<TodoItem> = TodoItem.fetchRequest()
-        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", query)
-        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
-        
-        loadData(with: request, predicate: predicate)
+        todoItems = todoItems?.filter("title CONTAINS[cd] %@", query)
+        tableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
