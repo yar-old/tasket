@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4BC6B1D126F730E3A3D45711 /* Pods_Tasket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C751ABD2C1935691BC70559 /* Pods_Tasket.framework */; };
+		B019C777201678C900DECFD9 /* CategoriesViewController+SwipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B019C776201678C900DECFD9 /* CategoriesViewController+SwipeCell.swift */; };
+		B019C7792016854C00DECFD9 /* TodoListViewController+SwipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B019C7782016854C00DECFD9 /* TodoListViewController+SwipeCell.swift */; };
 		B034530020158E28006CBAB8 /* TodoListViewController+UISearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03452FF20158E28006CBAB8 /* TodoListViewController+UISearchBar.swift */; };
 		B03453042015973B006CBAB8 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03453032015973B006CBAB8 /* CategoriesViewController.swift */; };
 		B0AFC76A2015AD3600C45135 /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AFC7692015AD3600C45135 /* TodoItem.swift */; };
@@ -22,6 +24,8 @@
 /* Begin PBXFileReference section */
 		2C751ABD2C1935691BC70559 /* Pods_Tasket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tasket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		837014AC713F2153FAD259F6 /* Pods-Tasket.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tasket.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tasket/Pods-Tasket.debug.xcconfig"; sourceTree = "<group>"; };
+		B019C776201678C900DECFD9 /* CategoriesViewController+SwipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CategoriesViewController+SwipeCell.swift"; sourceTree = "<group>"; };
+		B019C7782016854C00DECFD9 /* TodoListViewController+SwipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoListViewController+SwipeCell.swift"; sourceTree = "<group>"; };
 		B03452FF20158E28006CBAB8 /* TodoListViewController+UISearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoListViewController+UISearchBar.swift"; sourceTree = "<group>"; };
 		B03453032015973B006CBAB8 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		B0AFC7692015AD3600C45135 /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
@@ -87,7 +91,9 @@
 			isa = PBXGroup;
 			children = (
 				B03453032015973B006CBAB8 /* CategoriesViewController.swift */,
+				B019C776201678C900DECFD9 /* CategoriesViewController+SwipeCell.swift */,
 				B0FBEB262013F09100792A6B /* TodoListViewController.swift */,
+				B019C7782016854C00DECFD9 /* TodoListViewController+SwipeCell.swift */,
 				B03452FF20158E28006CBAB8 /* TodoListViewController+UISearchBar.swift */,
 			);
 			name = Controllers;
@@ -245,11 +251,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Tasket/Pods-Tasket-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -268,7 +276,9 @@
 				B0FBEB252013F09100792A6B /* AppDelegate.swift in Sources */,
 				B0AFC76A2015AD3600C45135 /* TodoItem.swift in Sources */,
 				B03453042015973B006CBAB8 /* CategoriesViewController.swift in Sources */,
+				B019C7792016854C00DECFD9 /* TodoListViewController+SwipeCell.swift in Sources */,
 				B0AFC76C2015AD3B00C45135 /* Category.swift in Sources */,
+				B019C777201678C900DECFD9 /* CategoriesViewController+SwipeCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
