@@ -1,5 +1,5 @@
 //
-//  TodoListViewController+SwipeCell.swift
+//  SwipeTableViewController.swift
 //  Tasket
 //
 //  Created by Yuri Ramocan on 1/22/18.
@@ -9,13 +9,25 @@
 import UIKit
 import SwipeCellKit
 
-extension TodoListViewController: SwipeTableViewCellDelegate {
+class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegate {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureTableView()
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SwipeTableViewCell
+        cell.delegate = self
+        
+        return cell
+    }
+    
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         guard orientation == .right else { return nil }
-        guard let todoItem = todoItems?[indexPath.row] else { return nil }
         
         let deleteAction = SwipeAction(style: .destructive, title: "Delete") { (action, indexPath) in
-            self.delete(todoItem: todoItem)
+            self.updateModel(at: indexPath)
         }
         
         deleteAction.image = UIImage(named: "delete")
@@ -29,15 +41,12 @@ extension TodoListViewController: SwipeTableViewCellDelegate {
         return options
     }
     
-    func delete(todoItem: TodoItem) {
-        do {
-            try realm.write {
-                realm.delete(todoItem)
-            }
-        } catch {
-            print("Error deleting todoItem from Realm \(error)")
-        }
+    func updateModel(at indexPath: IndexPath) {
+        // update data model
     }
     
-    
+    func configureTableView() {
+        tableView.rowHeight = 80.0
+    }
+
 }

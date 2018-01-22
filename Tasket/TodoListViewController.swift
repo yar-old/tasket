@@ -8,9 +8,8 @@
 
 import UIKit
 import RealmSwift
-import SwipeCellKit
 
-class TodoListViewController: UITableViewController {
+class TodoListViewController: SwipeTableViewController {
     
     // MARK: - Instance Variables
     let realm = try! Realm()
@@ -35,8 +34,7 @@ class TodoListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TodoItemCell", for: indexPath) as! SwipeTableViewCell
-        cell.delegate = self
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         if let item = todoItems?[indexPath.row] {
             cell.textLabel?.text = item.title
@@ -103,9 +101,9 @@ class TodoListViewController: UITableViewController {
     
     // MARK: - UI Manipulation Methods
     
-    func configureTableView() {
+    override func configureTableView() {
+        super.configureTableView()
         self.title = selectedCategory?.name
-        tableView.rowHeight = 80.0
     }
     
     // MARK: - Data Manipulation Methods
@@ -125,6 +123,21 @@ class TodoListViewController: UITableViewController {
     func loadData() {
         todoItems = selectedCategory?.todoItems.sorted(byKeyPath: "dateCreated", ascending: false)
         tableView.reloadData()
+    }
+    
+    override func updateModel(at indexPath: IndexPath) {
+        guard let todoItem = todoItems?[indexPath.row] else { return }
+        delete(todoItem: todoItem)
+    }
+    
+    func delete(todoItem: TodoItem) {
+        do {
+            try realm.write {
+                realm.delete(todoItem)
+            }
+        } catch {
+            print("Error deleting todoItem from Realm \(error)")
+        }
     }
     
 }
