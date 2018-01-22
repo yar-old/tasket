@@ -79,6 +79,7 @@ class TodoListViewController: UITableViewController {
                 try self.realm.write {
                     let newTodoItem = TodoItem()
                     newTodoItem.title = text
+                    newTodoItem.dateCreated = Date()
                     currentCategory.todoItems.append(newTodoItem)
                 }
             } catch {
@@ -109,13 +110,8 @@ class TodoListViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    func loadData(with predicate: NSPredicate? = nil) {
-        if let searchPredicate = predicate {
-            todoItems = selectedCategory?.todoItems.filter(searchPredicate).sorted(byKeyPath: "title", ascending: true)
-        } else {
-            todoItems = selectedCategory?.todoItems.sorted(byKeyPath: "title", ascending: true)
-        }
-        
+    func loadData() {
+        todoItems = selectedCategory?.todoItems.sorted(byKeyPath: "dateCreated", ascending: false)
         tableView.reloadData()
     }
     
