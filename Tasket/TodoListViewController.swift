@@ -14,12 +14,16 @@ class TodoListViewController: UITableViewController {
     // MARK: - Instance Variables
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var todoArray = [TodoItem]()
+    var selectedCategory: Category? {
+        didSet {
+            loadData()
+        }
+    }
     
     // MARK: - View Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadItems()
     }
     
     // MARK: - TableView DataSource Methods
@@ -62,6 +66,7 @@ class TodoListViewController: UITableViewController {
             let newTodoItem = TodoItem(context: self.context)
             newTodoItem.title = text
             newTodoItem.isFinished = false
+            newTodoItem.parentCategory = self.selectedCategory
             
             self.todoArray.append(newTodoItem)
             self.saveData()
@@ -86,7 +91,17 @@ class TodoListViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    func loadItems(with request: NSFetchRequest<TodoItem> = TodoItem.fetchRequest()) {
+    func loadData(with request: NSFetchRequest<TodoItem> = TodoItem.fetchRequest(), predicate: NSPredicate? = nil) {
+        
+        guard let categoryName = selectedCategory?.name else { return }
+        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", categoryName)
+        
+        if let addditionalPredicate = predicate {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, addditionalPredicate])
+        } else {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate])
+        }
+        
         do {
             todoArray = try context.fetch(request)
         } catch {

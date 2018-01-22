@@ -19,7 +19,7 @@ extension TodoListViewController: UISearchBarDelegate {
         let predicate = NSPredicate(format: "title CONTAINS[cd] %@", query)
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         
-        loadItems(with: request)
+        loadData(with: request, predicate: predicate)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
