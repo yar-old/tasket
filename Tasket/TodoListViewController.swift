@@ -25,6 +25,7 @@ class TodoListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureTableView()
     }
     
     // MARK: - TableView DataSource Methods
@@ -34,7 +35,8 @@ class TodoListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TodoItemCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TodoItemCell", for: indexPath) as! SwipeTableViewCell
+        cell.delegate = self
         
         if let item = todoItems?[indexPath.row] {
             cell.textLabel?.text = item.title
@@ -98,6 +100,15 @@ class TodoListViewController: UITableViewController {
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
+    
+    // MARK: - UI Manipulation Methods
+    
+    func configureTableView() {
+        self.title = selectedCategory?.name
+        tableView.rowHeight = 80.0
+    }
+    
+    // MARK: - Data Manipulation Methods
     
     func save(todoItem: TodoItem) {
         do {

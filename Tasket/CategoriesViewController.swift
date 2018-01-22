@@ -21,6 +21,7 @@ class CategoriesViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()
+        configureTableView()
     }
 
     // MARK: - Table View Data Source Methods
@@ -30,7 +31,8 @@ class CategoriesViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "categoryItemCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "categoryItemCell", for: indexPath) as! SwipeTableViewCell
+        cell.delegate = self
         cell.textLabel?.text = categories?[indexPath.row].name ?? "No Categories Added Yet"
 
         return cell
@@ -49,6 +51,12 @@ class CategoriesViewController: UITableViewController {
             let destinationVC = segue.destination as! TodoListViewController
             destinationVC.selectedCategory = categories?[indexPath.row]
         }
+    }
+    
+    // MARK: - UI Manipulation Methods
+    
+    func configureTableView() {
+        tableView.rowHeight = 80.0
     }
     
     // MARK: - Data Manipulation Methods
