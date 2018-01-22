@@ -45,10 +45,10 @@ class TodoListViewController: UITableViewController {
         item.isFinished = !item.isFinished
         tableView.deselectRow(at: indexPath, animated: true)
         
-        saveItems()
+        saveData()
     }
     
-    // MARK: IBActions
+    // MARK: - IBActions
     
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
         var textField = UITextField()
@@ -63,7 +63,8 @@ class TodoListViewController: UITableViewController {
             newTodoItem.title = text
             newTodoItem.isFinished = false
             
-            self.saveItems()
+            self.todoArray.append(newTodoItem)
+            self.saveData()
         }
         
         alert.addTextField { (alertTextField) in
@@ -75,14 +76,14 @@ class TodoListViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    func saveItems() {
+    func saveData() {
         do {
             try context.save()
         } catch {
             print("Error saving context \(error)")
         }
         
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
     
     func loadItems(with request: NSFetchRequest<TodoItem> = TodoItem.fetchRequest()) {

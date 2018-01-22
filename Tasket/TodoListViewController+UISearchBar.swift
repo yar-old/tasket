@@ -16,7 +16,7 @@ extension TodoListViewController: UISearchBarDelegate {
         guard let query = searchBar.text else { return }
         
         let request: NSFetchRequest<TodoItem> = TodoItem.fetchRequest()
-        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", query)
+        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", query)
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         
         loadItems(with: request)
@@ -24,7 +24,8 @@ extension TodoListViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.count == 0 {
-            loadItems()
+            
+            loadData()
             
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
