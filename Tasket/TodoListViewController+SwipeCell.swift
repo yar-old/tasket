@@ -23,6 +23,12 @@ extension TodoListViewController: SwipeTableViewCellDelegate {
         return [deleteAction]
     }
     
+    func tableView(_ tableView: UITableView, editActionsOptionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> SwipeTableOptions {
+        var options = SwipeTableOptions()
+        options.expansionStyle = .destructive
+        return options
+    }
+    
     func delete(todoItem: TodoItem) {
         do {
             try realm.write {
@@ -31,8 +37,6 @@ extension TodoListViewController: SwipeTableViewCellDelegate {
         } catch {
             print("Error deleting todoItem from Realm \(error)")
         }
-        
-        tableView.reloadData()
     }
     
     
