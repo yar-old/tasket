@@ -7,19 +7,19 @@
 //
 
 import UIKit
+import CoreData
 
 class TodoListViewController: UITableViewController {
     
     // MARK: - Instance Variables
-    
-    var todoArray = ["Eat Breakfast", "Clean House", "Create DataSource", "Go To Bed", "Brush Teeth", "Make Pizza", "Scrub Toilet", "Thaw Chicken", "Save The World", "Call Mom", "Renew Tags", "Do Homework", "Watch Netflix", "Be A Hipster", "Drink Water", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"].map { (item) -> TodoItem in
-        return TodoItem(title: item)
-    }
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var todoArray = [TodoItem]()
     
     // MARK: - View Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadItems()
     }
     
     // MARK: - TableView DataSource Methods
@@ -29,8 +29,11 @@ class TodoListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let item = todoArray[indexPath.row]
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "TodoItemCell", for: indexPath)
-        cell.textLabel?.text = todoArray[indexPath.row].title
+        cell.textLabel?.text = item.title
+        cell.accessoryType = item.isFinished ? .checkmark : .none
         
         return cell
     }
@@ -38,8 +41,11 @@ class TodoListViewController: UITableViewController {
     // MARK: - TableView Delegate Methods
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        todoArray[indexPath.row].toggleIsFinished()
+        let item = todoArray[indexPath.row]
+        item.isFinished = !item.isFinished
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        saveItems()
     }
     
     // MARK: IBActions
@@ -53,12 +59,11 @@ class TodoListViewController: UITableViewController {
             guard let text = textField.text else { return }
             if text.isEmpty { return }
             
-            let newTodoItem = TodoItem(title: text)
+            let newTodoItem = TodoItem(context: self.context)
+            newTodoItem.title = text
+            newTodoItem.isFinished = false
             
-            self.todoArray.append(newTodoItem)
-            
-            self.tableView.reloadData()
-            self.tableView.layoutIfNeeded()
+            self.saveItems()
         }
         
         alert.addTextField { (alertTextField) in
@@ -68,6 +73,26 @@ class TodoListViewController: UITableViewController {
         
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
+    }
+    
+    func saveItems() {
+        do {
+            try context.save()
+        } catch {
+            print("Error saving context \(error)")
+        }
+        
+        self.tableView.reloadData()
+    }
+    
+    func loadItems(with request: NSFetchRequest<TodoItem> = TodoItem.fetchRequest()) {
+        do {
+            todoArray = try context.fetch(request)
+        } catch {
+            print("Error fetching data from context \(error)")
+        }
+        
+        tableView.reloadData()
     }
     
 }

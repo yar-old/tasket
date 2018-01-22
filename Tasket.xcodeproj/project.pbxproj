@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B03452DD20145EA0006CBAB8 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B03452DB20145EA0006CBAB8 /* DataModel.xcdatamodeld */; };
+		B034530020158E28006CBAB8 /* TodoListViewController+UISearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B03452FF20158E28006CBAB8 /* TodoListViewController+UISearchBar.swift */; };
 		B0FBEB252013F09100792A6B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FBEB242013F09100792A6B /* AppDelegate.swift */; };
 		B0FBEB272013F09100792A6B /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0FBEB262013F09100792A6B /* TodoListViewController.swift */; };
 		B0FBEB2A2013F09100792A6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0FBEB282013F09100792A6B /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		B03452DC20145EA0006CBAB8 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		B03452FF20158E28006CBAB8 /* TodoListViewController+UISearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoListViewController+UISearchBar.swift"; sourceTree = "<group>"; };
 		B0FBEB212013F09100792A6B /* Tasket.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tasket.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0FBEB242013F09100792A6B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0FBEB262013F09100792A6B /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				B0FBEB262013F09100792A6B /* TodoListViewController.swift */,
+				B03452FF20158E28006CBAB8 /* TodoListViewController+UISearchBar.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -171,6 +174,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B034530020158E28006CBAB8 /* TodoListViewController+UISearchBar.swift in Sources */,
 				B0FBEB272013F09100792A6B /* TodoListViewController.swift in Sources */,
 				B03452DD20145EA0006CBAB8 /* DataModel.xcdatamodeld in Sources */,
 				B0FBEB252013F09100792A6B /* AppDelegate.swift in Sources */,
