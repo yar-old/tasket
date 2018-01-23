@@ -47,6 +47,7 @@ class SwipeTableViewController: UITableViewController, SwipeTableViewCellDelegat
     
     func configureTableView() {
         tableView.rowHeight = 80.0
+        tableView.separatorStyle = .none
     }
 
 }

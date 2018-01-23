@@ -40,7 +40,7 @@ class CategoriesViewController: SwipeTableViewController {
         
         cell.backgroundColor = categoryColor
         cell.textLabel?.text = category.name
-        cell.textLabel?.textColor = UIColor.init(contrastingBlackOrWhiteColorOn: categoryColor, isFlat: true)
+        cell.textLabel?.textColor = UIColor(contrastingBlackOrWhiteColorOn: categoryColor, isFlat: true)
         
         return cell
     }
@@ -64,7 +64,6 @@ class CategoriesViewController: SwipeTableViewController {
     
     override func configureTableView() {
         super.configureTableView()
-        tableView.separatorStyle = .none
     }
     
     // MARK: - Data Manipulation Methods

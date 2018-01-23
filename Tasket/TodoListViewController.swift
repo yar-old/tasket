@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class TodoListViewController: SwipeTableViewController {
     
@@ -20,11 +21,29 @@ class TodoListViewController: SwipeTableViewController {
         }
     }
     
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     // MARK: - View Lifecycle Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let category = selectedCategory else { fatalError("Category does not exist.") }
+        guard let categoryColor = UIColor(hexString: category.color) else { fatalError("Category color does not exist.") }
+        
+        updateNavbar(withHexCode: category.color)
+        
+        searchBar.barTintColor = categoryColor
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        resetNavbar()
     }
     
     // MARK: - TableView DataSource Methods
@@ -39,6 +58,12 @@ class TodoListViewController: SwipeTableViewController {
         if let item = todoItems?[indexPath.row] {
             cell.textLabel?.text = item.title
             cell.accessoryType = item.isFinished ? .checkmark : .none
+            
+            guard let categoryColor = UIColor(hexString: selectedCategory?.color ?? UIColor.flatSkyBlue.hexValue()) else { return cell }
+            guard let darkenColor = categoryColor.darken(byPercentage: CGFloat(indexPath.row) / CGFloat(todoItems!.count)) else { return cell }
+            
+            cell.backgroundColor = darkenColor
+            cell.textLabel?.textColor = UIColor(contrastingBlackOrWhiteColorOn: darkenColor, isFlat: true)
         } else {
             cell.textLabel?.text = "No Items Added Yet"
         }
@@ -104,6 +129,36 @@ class TodoListViewController: SwipeTableViewController {
     override func configureTableView() {
         super.configureTableView()
         self.title = selectedCategory?.name
+    }
+    
+    func updateNavbar(withHexCode colorHexCode: String) {
+        guard let navBar = navigationController?.navigationBar else { fatalError("Navigation controller does not exist.") }
+        guard let categoryColor = UIColor(hexString: colorHexCode) else { fatalError("Category color does not exist.") }
+        
+        navBar.barTintColor = categoryColor
+        navBar.tintColor = ContrastColorOf(categoryColor, returnFlat: true)
+        
+        if #available(iOS 11.0, *) {
+            navBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: ContrastColorOf(categoryColor, returnFlat: true)]
+        } else {
+            navBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: ContrastColorOf(categoryColor, returnFlat: true)]
+        }
+    }
+    
+    func resetNavbar() {
+        guard let originalColor = UIColor(hexString: "1D9BF6") else { fatalError("'Original Color' does not exist.") }
+        guard let navBar = navigationController?.navigationBar else { fatalError("Navigation controller does not exist.") }
+        
+        let contrastColor = ContrastColorOf(originalColor, returnFlat: true)
+        
+        navBar.barTintColor = originalColor
+        navBar.tintColor = contrastColor
+        
+        if #available(iOS 11.0, *) {
+            navBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: contrastColor]
+        } else {
+            navBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: contrastColor]
+        }
     }
     
     // MARK: - Data Manipulation Methods
